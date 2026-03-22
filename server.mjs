@@ -26,7 +26,12 @@ app.use(
 )
 
 app.use(express.static(dist))
-app.get('*', (req, res) => {
+// Express 5 / path-to-regexp v8: '*' is not a valid route pattern (crashes at startup).
+app.use((req, res) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.status(404).end()
+    return
+  }
   res.sendFile(path.join(dist, 'index.html'))
 })
 
