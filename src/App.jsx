@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from 'react'
 const HF_INFERENCE_BASE = (
   import.meta.env.VITE_HF_INFERENCE_BASE_URL || '/api-hf'
 ).replace(/\/$/, '')
-/** Vision model on Inference Providers (OpenAI-compatible chat). Override with VITE_HF_VISION_MODEL. */
+
 const VISION_MODEL =
   import.meta.env.VITE_HF_VISION_MODEL?.trim() || 'Qwen/Qwen2.5-VL-7B-Instruct'
 const HF_CHAT_URL = `${HF_INFERENCE_BASE}/v1/chat/completions`
@@ -48,7 +48,6 @@ function looksLikeHtml(body) {
   return s.startsWith('<!doctype') || s.startsWith('<html')
 }
 
-/** Never surface raw HTML error pages in the UI. */
 async function readErrorMessage(response) {
   const ct = (response.headers.get('content-type') || '').toLowerCase()
   if (ct.includes('text/html')) {
@@ -92,9 +91,7 @@ function parseJsonResponse(raw) {
   }
 }
 
-/**
- * Resize + JPEG encode until under maxBytes (same visual preview; upload is compressed).
- */
+
 async function compressImageForUpload(file) {
   let bitmap
   try {
