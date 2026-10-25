@@ -20,7 +20,6 @@
     transform: translateY(0) scale(1);
   }
 }
-
 @keyframes spinner-orbit {
   0% {
     transform: rotate(0deg);
